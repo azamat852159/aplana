@@ -11,10 +11,10 @@ public class task2 {
 
     public static void main(String[] args) {
         int i = 0;
-        System.out.println("Введите 1(упорядочить массив) или 2 (калькулятор)");
+        System.out.println("Введите 2(массив) или 1 (калькулятор)");
         try {
             i = sc.nextInt();
-            if(i == 2){
+            if(i == 1){
                 task2.calc();
             }else{
                 task2.mas();
@@ -31,7 +31,6 @@ public class task2 {
         List<String> list = new ArrayList<>(x);
         for (int i = 0; i <= x ; i++) {
             list.add(sc.nextLine());
-            System.out.println(i);
         }
         list.sort((o1, o2) -> o1.length() - o2.length());
         System.out.println(list.get(list.size()-1));
