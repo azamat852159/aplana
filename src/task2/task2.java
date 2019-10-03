@@ -22,7 +22,6 @@ public class task2 {
         } catch (InputMismatchException e) {
             System.out.println("Введенные данные не валидны");
         }
-
     }
 
     private static void mas() {
@@ -38,29 +37,61 @@ public class task2 {
 
 
     private static void calc() {
-        System.out.println("Введите выражение . Пример : 2 + 3; 4 * 8 и тд");
+        System.out.println("Введите выражение с +,-,* или / . Пример : 2 + 3; 4 * 8 и тд");
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine().replaceAll("\\s", "");
-        if (str.contains("+")) {
-            double x1 = Double.parseDouble(str.substring(0, str.indexOf('+')));
-            double x2 = Double.parseDouble(str.substring(str.indexOf('+') + 1));
-            System.out.println(String.format("%.4f",x1 + x2));
-        } else if (str.contains("-")) {
-            double x1 = Double.parseDouble(str.substring(0, str.indexOf('-')));
-            double x2 = Double.parseDouble(str.substring(str.indexOf('-') + 1));
-            System.out.println(String.format("%.4f",x1 - x2));
-        } else if (str.contains("*")) {
-            double x1 = Double.parseDouble(str.substring(0, str.indexOf('*')));
-            double x2 = Double.parseDouble(str.substring(str.indexOf('*') + 1));
-            System.out.println(String.format("%.4f",x1 * x2));
-        } else if (str.contains("/")) {
-            double x1 = Double.parseDouble(str.substring(0, str.indexOf('/')));
-            double x2 = Double.parseDouble(str.substring(str.indexOf('/') + 1));
-            if (x2 != 0) {
-                System.out.println(String.format("%.4f",x1 / x2));
-            }else {
-                System.out.println("Нельзя делить на 0");
-            }
+        calc calc = new calc();
+        if (str.substring(1).contains("+")) {
+            calc.plus(str);
+        } else if (str.substring(1).contains("-")) {
+            calc.minus(str);
+        } else if (str.substring(1).contains("*")) {
+            calc.multiply(str);
+        } else if (str.substring(1).contains("/")) {
+            calc.divide(str);
+        }else{
+            System.out.println("Введены данные не по шаблону");
         }
+    }
+}
+
+class calc {
+    public void plus(String str) {
+        double x1 = Double.parseDouble(str.substring(0, str.indexOf('+')));
+        double x2 = Double.parseDouble(str.substring(str.indexOf('+') + 1));
+        System.out.println(String.format("%.4f", x1 + x2));
+    }
+
+    public void minus(String str) {
+        double x1;
+        double x2;
+        if (str.indexOf('-') != 0) {
+            x1 = Double.parseDouble(str.substring(0, str.indexOf('-')));
+        } else {
+            str = removeCharAt(str, 0);
+            x1 = (-1) * Double.parseDouble(str.substring(0, str.indexOf('-')));
+        }
+        x2 = Double.parseDouble(str.substring(str.indexOf('-') + 1));
+        System.out.println(String.format("%.4f", x1 - x2));
+    }
+
+    public void multiply(String str) {
+        double x1 = Double.parseDouble(str.substring(0,str.indexOf('*')));
+        double x2 = Double.parseDouble(str.substring(str.indexOf('*') + 1));
+        System.out.println(String.format("%.4f", x1 * x2));
+    }
+
+    public void divide(String str) {
+        double x1 = Double.parseDouble(str.substring(0,str.indexOf('/')));
+        double x2 = Double.parseDouble(str.substring(str.indexOf('/') + 1));
+        if (x2 != 0) {
+            System.out.println(String.format("%.4f", x1 / x2));
+        } else {
+            System.out.println("Нельзя делить на 0");
+        }
+    }
+
+    public static String removeCharAt(String s, int pos) {
+        return s.substring(0, pos) + s.substring(pos + 1);
     }
 }
