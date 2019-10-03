@@ -3,10 +3,10 @@ package task2;
 import java.util.*;
 
 /*
-* Задача с массивом строк и калькулятором. На калькулятор вводится только 1 действие, входные данные вида 2*2-2 - не валидны
-*
-*
-* */
+ * Задача с массивом строк и калькулятором. На калькулятор вводится только 1 действие, входные данные вида 2*2-2 - не валидны
+ *
+ *
+ * */
 
 public class task2 {
     private static Scanner sc;
@@ -55,7 +55,7 @@ public class task2 {
             calc.multiply(str);
         } else if (str.substring(1).contains("/")) {
             calc.divide(str);
-        }else{
+        } else {
             System.out.println("Введены данные не по шаблону");
         }
     }
@@ -63,37 +63,53 @@ public class task2 {
 
 class calc {
     public void plus(String str) {
-        double x1 = Double.parseDouble(str.substring(0, str.indexOf('+')));
-        double x2 = Double.parseDouble(str.substring(str.indexOf('+') + 1));
-        System.out.println(String.format("%.4f", x1 + x2));
+        try {
+            double x1 = Double.parseDouble(str.substring(0, str.indexOf('+')));
+            double x2 = Double.parseDouble(str.substring(str.indexOf('+') + 1));
+            System.out.println(String.format("%.4f", x1 + x2));
+        } catch (NumberFormatException e) {
+            System.out.println("Вы ввели параметры не по шаблону");
+        }
     }
 
     public void minus(String str) {
         double x1;
         double x2;
-        if (str.indexOf('-') != 0) {
-            x1 = Double.parseDouble(str.substring(0, str.indexOf('-')));
-        } else {
-            str = removeCharAt(str, 0);
-            x1 = (-1) * Double.parseDouble(str.substring(0, str.indexOf('-')));
+        try {
+            if (str.indexOf('-') != 0) {
+                x1 = Double.parseDouble(str.substring(0, str.indexOf('-')));
+            } else {
+                str = removeCharAt(str, 0);
+                x1 = (-1) * Double.parseDouble(str.substring(0, str.indexOf('-')));
+            }
+            x2 = Double.parseDouble(str.substring(str.indexOf('-') + 1));
+            System.out.println(String.format("%.4f", x1 - x2));
+        } catch (NumberFormatException e) {
+            System.out.println("Вы ввели параметры не по шаблону");
         }
-        x2 = Double.parseDouble(str.substring(str.indexOf('-') + 1));
-        System.out.println(String.format("%.4f", x1 - x2));
     }
 
     public void multiply(String str) {
-        double x1 = Double.parseDouble(str.substring(0,str.indexOf('*')));
-        double x2 = Double.parseDouble(str.substring(str.indexOf('*') + 1));
-        System.out.println(String.format("%.4f", x1 * x2));
+        try {
+            double x1 = Double.parseDouble(str.substring(0, str.indexOf('*')));
+            double x2 = Double.parseDouble(str.substring(str.indexOf('*') + 1));
+            System.out.println(String.format("%.4f", x1 * x2));
+        } catch (NumberFormatException e) {
+            System.out.println("Вы ввели параметры не по шаблону");
+        }
     }
 
     public void divide(String str) {
-        double x1 = Double.parseDouble(str.substring(0,str.indexOf('/')));
-        double x2 = Double.parseDouble(str.substring(str.indexOf('/') + 1));
-        if (x2 != 0) {
-            System.out.println(String.format("%.4f", x1 / x2));
-        } else {
-            System.out.println("Нельзя делить на 0");
+        try {
+            double x1 = Double.parseDouble(str.substring(0, str.indexOf('/')));
+            double x2 = Double.parseDouble(str.substring(str.indexOf('/') + 1));
+            if (x2 != 0) {
+                System.out.println(String.format("%.4f", x1 / x2));
+            } else {
+                System.out.println("Нельзя делить на 0");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Вы ввели параметры не по шаблону");
         }
     }
 
