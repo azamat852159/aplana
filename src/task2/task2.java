@@ -44,20 +44,20 @@ public class task2 {
         if (str.contains("+")) {
             double x1 = Double.parseDouble(str.substring(0, str.indexOf('+')));
             double x2 = Double.parseDouble(str.substring(str.indexOf('+') + 1));
-            System.out.println(x1 + x2);
+            System.out.println(String.format("%.4f",x1 + x2));
         } else if (str.contains("-")) {
             double x1 = Double.parseDouble(str.substring(0, str.indexOf('-')));
             double x2 = Double.parseDouble(str.substring(str.indexOf('-') + 1));
-            System.out.println(x1 - x2);
+            System.out.println(String.format("%.4f",x1 - x2));
         } else if (str.contains("*")) {
             double x1 = Double.parseDouble(str.substring(0, str.indexOf('*')));
             double x2 = Double.parseDouble(str.substring(str.indexOf('*') + 1));
-            System.out.println(x1 * x2);
+            System.out.println(String.format("%.4f",x1 * x2));
         } else if (str.contains("/")) {
             double x1 = Double.parseDouble(str.substring(0, str.indexOf('/')));
             double x2 = Double.parseDouble(str.substring(str.indexOf('/') + 1));
             if (x2 != 0) {
-                System.out.println(x1 / x2);
+                System.out.println(String.format("%.4f",x1 / x2));
             }else {
                 System.out.println("Нельзя делить на 0");
             }
