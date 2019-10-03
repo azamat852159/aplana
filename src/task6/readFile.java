@@ -7,7 +7,6 @@ package task6;
 * Отсортировать в алфавитном порядке.
 * Посчитать сколько раз каждое слово встречается в файле. Вывести статистику на консоль
 * Найти слово с максимальным количеством повторений. Вывести на консоль это слово и сколько раз оно встречается в файле
-*
 * */
 
 import org.w3c.dom.ls.LSOutput;
@@ -23,7 +22,7 @@ public class readFile {
     public static void main(String[] args){
         List<String> list;
         List<hepler> heplerList = new ArrayList<>();
-        list =readFile.crateFistFromFile();
+        list =readFile.crateListFromFile();
         if(list != null){
             heplerList = findTheSame(list);
             deleteTheSame(heplerList);
@@ -62,7 +61,7 @@ public class readFile {
         return listHelper;
     }
 
-    static List<String> crateFistFromFile(){
+    static List<String> crateListFromFile(){
         List<String> list;
         try {
             BufferedReader bufferedReader = new BufferedReader( new FileReader("src\\task6\\file.txt"));
