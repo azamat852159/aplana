@@ -2,6 +2,12 @@ package task2;
 
 import java.util.*;
 
+/*
+* Задача с массивом строк и калькулятором. На калькулятор вводится только 1 действие, входные данные вида 2*2-2 - не валидны
+*
+*
+* */
+
 public class task2 {
     private static Scanner sc;
 
