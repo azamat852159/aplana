@@ -1,5 +1,7 @@
 package task2;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.*;
 
 /*
@@ -22,8 +24,10 @@ public class task2 {
             i = sc.nextInt();
             if (i == 1) {
                 task2.calc();
-            } else {
+            }else if(i==2) {
                 task2.mas();
+            }else{
+                System.out.println("Операции под номером " + i + " нет");
             }
         } catch (InputMismatchException e) {
             System.out.println("Введенные данные не валидны");
