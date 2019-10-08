@@ -18,8 +18,8 @@ public class MaxAndMinReverse {
         printf(mas);
         max = findMax(mas);
         min = findMin(mas);
-        System.out.println("Минимальное значение под индексом " + min[0] + " равно " + min[1]);
-        System.out.println("Максимальное значение под индексом " + max[0] + " равно " + max[1]);
+        System.out.println("Минимальный положительный элемент под индексом " + min[0] + " равен " + min[1]);
+        System.out.println("Максимальное отрицательный элемент под индексом " + max[0] + " равен " + max[1]);
         mas = reverseMas(mas,max[0],min[0]);
         printf(mas);
     }
@@ -39,9 +39,14 @@ public class MaxAndMinReverse {
 
     private static int[] findMin(int[] mas){
         int [] minIndexAndVal = new int[2];
-        minIndexAndVal[1] = mas[0];
-        for (int i = 1; i < mas.length ; i++) {
-            if (minIndexAndVal[1] > mas[i]) {
+        boolean b = true;
+        for (int i = 0; i < mas.length ; i++) {
+            if(b && mas[i] > 0){
+                minIndexAndVal[0] = i;
+                minIndexAndVal[1] = mas[i];
+                b = false;
+            }
+            if (!b && mas[i]>0 && minIndexAndVal[1] > mas[i] ) {
                 minIndexAndVal[0] = i;
                 minIndexAndVal[1] = mas[i];
             }
@@ -52,11 +57,16 @@ public class MaxAndMinReverse {
     private static int[] findMax(int[] mas){
         int [] maxIndexAndVal = new int[2];
         maxIndexAndVal[1] = mas[0];
-        for (int i = 1; i < mas.length ; i++) {
-            if (maxIndexAndVal[1] < mas[i]) {
+        boolean b1 = true;
+        for (int i = 0; i < mas.length ; i++) {
+            if(b1 && mas[i] < 0){
                 maxIndexAndVal[0] = i;
                 maxIndexAndVal[1] = mas[i];
-
+                b1 = false;
+            }
+            if (!b1 && mas[i]<0 && maxIndexAndVal[1] < mas[i] ) {
+                maxIndexAndVal[0] = i;
+                maxIndexAndVal[1] = mas[i];
             }
         }
         return maxIndexAndVal;
