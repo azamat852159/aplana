@@ -1,7 +1,7 @@
 package task2;
 
 import org.w3c.dom.ls.LSOutput;
-
+import org.junit.Test;
 import java.util.*;
 
 /*
@@ -19,11 +19,17 @@ public class task2 {
 
     public static void main(String[] args) {
         int i = 0;
+        double z;
         System.out.println("Введите 2(массив) или 1 (калькулятор)");
         try {
             i = sc.nextInt();
             if (i == 1) {
-                task2.calc();
+                try {
+                    z = calc();
+                    System.out.println(String.format("%.4f",z));
+                }catch (NumberFormatException e){
+                    System.out.println("Error");
+                }
             }else if(i==2) {
                 task2.mas();
             }else{
@@ -46,40 +52,35 @@ public class task2 {
     }
 
 
-    private static void calc() {
+    private static double calc() {
         System.out.println("Введите выражение с +,-,* или / . Пример : 2 + 3; 4 * 8 и тд");
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine().replaceAll("\\s", "");
+        double z;
         calc calc = new calc();
         if (str.substring(1).contains("+")) {
-            calc.plus(str);
+            z = calc.plus(str);
         } else if (str.substring(1).contains("-")) {
-            calc.minus(str);
+            z = calc.minus(str);
         } else if (str.substring(1).contains("*")) {
-            calc.multiply(str);
-        } else if (str.substring(1).contains("/")) {
-            calc.divide(str);
+            z = calc.multiply(str);
         } else {
-            System.out.println("Введены данные не по шаблону");
+            z = calc.divide(str);
         }
+        return z;
     }
 }
 
 class calc {
-    public void plus(String str) {
-        try {
+    public double plus(String str)  throws NumberFormatException{
             double x1 = Double.parseDouble(str.substring(0, str.indexOf('+')));
             double x2 = Double.parseDouble(str.substring(str.indexOf('+') + 1));
-            System.out.println(String.format("%.4f", x1 + x2));
-        } catch (NumberFormatException e) {
-            System.out.println("Вы ввели параметры не по шаблону");
-        }
+            return x1 + x2;
     }
 
-    public void minus(String str) {
+    public double minus(String str) throws NumberFormatException {
         double x1;
         double x2;
-        try {
             if (str.indexOf('-') != 0) {
                 x1 = Double.parseDouble(str.substring(0, str.indexOf('-')));
             } else {
@@ -87,34 +88,24 @@ class calc {
                 x1 = (-1) * Double.parseDouble(str.substring(0, str.indexOf('-')));
             }
             x2 = Double.parseDouble(str.substring(str.indexOf('-') + 1));
-            System.out.println(String.format("%.4f", x1 - x2));
-        } catch (NumberFormatException e) {
-            System.out.println("Вы ввели параметры не по шаблону");
-        }
+            return x1 - x2;
     }
 
-    public void multiply(String str) {
-        try {
+    public double multiply(String str) throws NumberFormatException {
             double x1 = Double.parseDouble(str.substring(0, str.indexOf('*')));
             double x2 = Double.parseDouble(str.substring(str.indexOf('*') + 1));
-            System.out.println(String.format("%.4f", x1 * x2));
-        } catch (NumberFormatException e) {
-            System.out.println("Вы ввели параметры не по шаблону");
-        }
+            return  x1 * x2;
     }
 
-    public void divide(String str) {
-        try {
+    public double divide(String str) throws NumberFormatException {
             double x1 = Double.parseDouble(str.substring(0, str.indexOf('/')));
             double x2 = Double.parseDouble(str.substring(str.indexOf('/') + 1));
             if (x2 != 0) {
-                System.out.println(String.format("%.4f", x1 / x2));
+                return  x1/x2;
             } else {
                 System.out.println("Нельзя делить на 0");
             }
-        } catch (NumberFormatException e) {
-            System.out.println("Вы ввели параметры не по шаблону");
-        }
+            return 0;
     }
 
     public static String removeCharAt(String s, int pos) {
