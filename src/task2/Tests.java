@@ -7,19 +7,39 @@ public class Tests {
     calc calc = new calc();
 
     @Test
-    public void test1(){
-        Assert.assertEquals(2.0,calc.plus("1+1"),0);
+    public void test1() {
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 100; j++) {
+                Assert.assertEquals(i + j, calc.plus(Integer.toString(i) + "+" + Integer.toString(j)), 0);
+            }
+        }
     }
+
     @Test
-    public void test2(){
-        Assert.assertEquals(4.1,calc.minus("5.2-1.1"),0);
+    public void test2() {
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 100; j++) {
+                Assert.assertEquals(i - j, calc.minus(Integer.toString(i) + "-" + Integer.toString(j)), 0);
+            }
+        }
     }
+
     @Test
-    public void test3(){
-        Assert.assertEquals(2.8,calc.multiply("1.4*2"),0);
+    public void test3() {
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 100; j++) {
+                Assert.assertEquals(i * j, calc.multiply(Integer.toString(i) + "*" + Integer.toString(j)), 0);
+            }
+        }
     }
+
     @Test
-    public void test4(){
-        Assert.assertEquals(2.5,calc.divide("5/2"),0);
+    public void test4() {
+        for (int i = 0; i < 100; i++) {
+            for (int j = 1; j < 100; j++) {
+                Assert.assertEquals((double) i / j, calc.divide(Integer.toString(i) + "/" + Integer.toString(j)), 0);
+            }
+        }
+
     }
 }
