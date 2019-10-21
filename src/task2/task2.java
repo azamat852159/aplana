@@ -2,6 +2,7 @@ package task2;
 
 import org.w3c.dom.ls.LSOutput;
 import org.junit.Test;
+
 import java.util.*;
 
 /*
@@ -11,6 +12,7 @@ import java.util.*;
  * */
 
 public class task2 {
+    private static boolean zero = false;
     private static Scanner sc;
 
     static {
@@ -26,13 +28,15 @@ public class task2 {
             if (i == 1) {
                 try {
                     z = calc();
-                    System.out.println(String.format("%.4f",z));
-                }catch (NumberFormatException e){
+                    if (!task2.zero) {
+                        System.out.println(String.format("%.4f", z));
+                    }
+                } catch (NumberFormatException e) {
                     System.out.println("Error");
                 }
-            }else if(i==2) {
+            } else if (i == 2) {
                 task2.mas();
-            }else{
+            } else {
                 System.out.println("Операции под номером " + i + " нет");
             }
         } catch (InputMismatchException e) {
@@ -56,7 +60,7 @@ public class task2 {
         System.out.println("Введите выражение с +,-,* или / . Пример : 2 + 3; 4 * 8 и тд");
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine().replaceAll("\\s", "");
-        double z;
+        double z = 0;
         calc calc = new calc();
         if (str.substring(1).contains("+")) {
             z = calc.plus(str);
@@ -65,47 +69,52 @@ public class task2 {
         } else if (str.substring(1).contains("*")) {
             z = calc.multiply(str);
         } else {
-            z = calc.divide(str);
+            try {
+                z = calc.divide(str);
+                return z;
+            } catch (ArithmeticException e) {
+                System.out.println("Деление на ноль неопределено");
+                task2.zero = true;
+            }
         }
         return z;
     }
 }
 
 class calc {
-    public double plus(String str)  throws NumberFormatException{
-            double x1 = Double.parseDouble(str.substring(0, str.indexOf('+')));
-            double x2 = Double.parseDouble(str.substring(str.indexOf('+') + 1));
-            return x1 + x2;
+    public double plus(String str) throws NumberFormatException {
+        double x1 = Double.parseDouble(str.substring(0, str.indexOf('+')));
+        double x2 = Double.parseDouble(str.substring(str.indexOf('+') + 1));
+        return x1 + x2;
     }
 
     public double minus(String str) throws NumberFormatException {
         double x1;
         double x2;
-            if (str.indexOf('-') != 0) {
-                x1 = Double.parseDouble(str.substring(0, str.indexOf('-')));
-            } else {
-                str = removeCharAt(str, 0);
-                x1 = (-1) * Double.parseDouble(str.substring(0, str.indexOf('-')));
-            }
-            x2 = Double.parseDouble(str.substring(str.indexOf('-') + 1));
-            return x1 - x2;
+        if (str.indexOf('-') != 0) {
+            x1 = Double.parseDouble(str.substring(0, str.indexOf('-')));
+        } else {
+            str = removeCharAt(str, 0);
+            x1 = (-1) * Double.parseDouble(str.substring(0, str.indexOf('-')));
+        }
+        x2 = Double.parseDouble(str.substring(str.indexOf('-') + 1));
+        return x1 - x2;
     }
 
     public double multiply(String str) throws NumberFormatException {
-            double x1 = Double.parseDouble(str.substring(0, str.indexOf('*')));
-            double x2 = Double.parseDouble(str.substring(str.indexOf('*') + 1));
-            return  x1 * x2;
+        double x1 = Double.parseDouble(str.substring(0, str.indexOf('*')));
+        double x2 = Double.parseDouble(str.substring(str.indexOf('*') + 1));
+        return x1 * x2;
     }
 
     public double divide(String str) throws NumberFormatException {
-            double x1 = Double.parseDouble(str.substring(0, str.indexOf('/')));
-            double x2 = Double.parseDouble(str.substring(str.indexOf('/') + 1));
-            if (x2 != 0) {
-                return  x1/x2;
-            } else {
-                System.out.println("Нельзя делить на 0");
-            }
-            return 0;
+        double x1 = Double.parseDouble(str.substring(0, str.indexOf('/')));
+        double x2 = Double.parseDouble(str.substring(str.indexOf('/') + 1));
+        if (x2 != 0) {
+            return x1 / x2;
+        } else {
+            throw new ArithmeticException();
+        }
     }
 
     public static String removeCharAt(String s, int pos) {
